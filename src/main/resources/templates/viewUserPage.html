@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>User</title>
+
+</head>
+<body>
+<style>
+    body {
+        background: aliceblue url("https://pub-static.fotor.com/static/web/site/features/backgrounds/images/Fotor-wood-background-image-5.jpg")
+    }
+
+    .pic {
+        width: 800px;
+        height: auto;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: 20px 50px;
+    }
+
+    .questionDisc {
+        color: white;
+        font-size: 36px;
+    }
+
+    .btn {
+        display: inline-block;
+        *display: inline;
+        *zoom: 1;
+        padding: 4px 10px 4px;
+        margin-bottom: 0;
+        font-size: 13px;
+        line-height: 18px;
+        color: #333333;
+        text-align: center;
+        text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+        vertical-align: middle;
+        background-color: #f5f5f5;
+        background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
+        background-image: -ms-linear-gradient(top, #ffffff, #e6e6e6);
+        background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
+        background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
+        background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
+        background-image: linear-gradient(top, #ffffff, #e6e6e6);
+        background-repeat: repeat-x;
+        filter: progid:dximagetransform.microsoft.gradient(startColorstr=#ffffff, endColorstr=#e6e6e6, GradientType=0);
+        border-color: #e6e6e6 #e6e6e6 #e6e6e6;
+        border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+        border: 1px solid #e6e6e6;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+        -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+        -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+        cursor: pointer;
+        *margin-left: .3em;
+    }
+
+    .btn:hover, .btn:active, .btn.active, .btn.disabled, .btn[disabled] {
+        background-color: #e6e6e6;
+    }
+
+    .btn:hover {
+        color: #333333;
+        text-decoration: none;
+        background-color: #e6e6e6;
+        background-position: 0 -15px;
+        -webkit-transition: background-position 0.1s linear;
+        -moz-transition: background-position 0.1s linear;
+        -ms-transition: background-position 0.1s linear;
+        -o-transition: background-position 0.1s linear;
+        transition: background-position 0.1s linear;
+    }
+
+    * {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -ms-box-sizing: border-box;
+        -o-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    .btn {
+        width: 100%;
+        height: auto;
+        font-size: 15px;
+        display: inline-block;
+        background: #227ccb;
+        color: #ffffff;
+        padding: 9px 14px;
+        text-decoration: none;
+        border-radius: 5px;
+        text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+        line-height: normal;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+    }
+</style>
+
+<form>
+    <div class="row">
+        <div  class="pic">
+            <img style="width: 200px; height: 200px"
+                 src="https://bootdey.com/img/Content/avatar/avatar7.png">
+            <h5 class="questionDisc" th:text="${userById.getUsername()}">
+            </h5>
+            <h5 class="questionDisc" th:text="${userById.getName()}">
+            </h5>
+            <h5 class="questionDisc" th:text="${userById.getSurname()}">
+            </h5>
+            <h5 class="questionDisc" th:text="${userById.getMobile()}">
+            </h5>
+            <a style="width: 100px" class="btn" href="/user/allUsers">Вернуться</a>
+        </div>
+        <div align="center" style="top: 50px; color: white" class="col">
+            <h5 th:text="${userById.getResult().getQuestion1()}"></h5>
+            <p th:text="${userById.getResult().getStatus1()}"></p>
+            <h5 th:text="${userById.getResult().getQuestion2()}"></h5>
+            <p th:text="${userById.getResult().getStatus2()}"></p>
+            <h5 th:text="${userById.getResult().getQuestion3()}"></h5>
+            <p th:text="${userById.getResult().getStatus3()}"></p>
+            <h5 th:text="${userById.getResult().getQuestion4()}"></h5>
+            <p th:text="${userById.getResult().getStatus4()}"></p>
+            <h5 th:text="${userById.getResult().getQuestion5()}"></h5>
+            <p th:text="${userById.getResult().getStatus5()}"></p>
+            <h5 th:text="${userById.getResult().getQuestion6()}"></h5>
+            <p th:text="${userById.getResult().getStatus6()}"></p>
+            <h5 th:text="${userById.getResult().getQuestion7()}"></h5>
+            <p th:text="${userById.getResult().getStatus7()}"></p>
+            <h5 th:text="${userById.getResult().getQuestion8()}"></h5>
+            <p th:text="${userById.getResult().getStatus8()}"></p>
+            <h5 th:text="${userById.getResult().getQuestion9()}"></h5>
+            <p th:text="${userById.getResult().getStatus9()}"></p>
+            <h5 th:text="${userById.getResult().getQuestion10()}"></h5>
+            <p th:text="${userById.getResult().getStatus10()}"></p>
+        </div>
+    </div>
+    <div class="pic">
+        <img style="width: 200px; height: 200px"
+             src="https://bootdey.com/img/Content/avatar/avatar7.png">
+        <h5 class="questionDisc" th:text="${userById.getUsername()}">
+        </h5>
+        <h5 class="questionDisc" th:text="${userById.getName()}">
+        </h5>
+        <h5 class="questionDisc" th:text="${userById.getSurname()}">
+        </h5>
+        <h5 class="questionDisc" th:text="${userById.getMobile()}">
+        </h5>
+        <a style="width: 100px" class="btn" href="/user/allUsers">Назад</a>
+    </div>
+</form>
+
+<footer class="fixed-bottom" style="background-color:cornflowerblue; height:25px">
+    <p align="center">© 2020, Минск, дипломный проект C34/Java TMS</p>
+</footer>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+</html>
