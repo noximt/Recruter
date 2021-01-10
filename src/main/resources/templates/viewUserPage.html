@@ -112,21 +112,8 @@
 </style>
 
 <form>
-    <div class="row">
-        <div  class="pic">
-            <img style="width: 200px; height: 200px"
-                 src="https://bootdey.com/img/Content/avatar/avatar7.png">
-            <h5 class="questionDisc" th:text="${userById.getUsername()}">
-            </h5>
-            <h5 class="questionDisc" th:text="${userById.getName()}">
-            </h5>
-            <h5 class="questionDisc" th:text="${userById.getSurname()}">
-            </h5>
-            <h5 class="questionDisc" th:text="${userById.getMobile()}">
-            </h5>
-            <a style="width: 100px" class="btn" href="/user/allUsers">Вернуться</a>
-        </div>
-        <div align="center" style="top: 50px; color: white" class="col">
+    <div style="width: auto;">
+        <div align="center" style="color: white; width: auto; margin: 50px auto">
             <h5 th:text="${userById.getResult().getQuestion1()}"></h5>
             <p th:text="${userById.getResult().getStatus1()}"></p>
             <h5 th:text="${userById.getResult().getQuestion2()}"></h5>

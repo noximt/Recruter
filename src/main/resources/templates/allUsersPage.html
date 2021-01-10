@@ -171,7 +171,6 @@
             <ul>
                 <li style="list-style: none" th:each="item:${allUsers}">
                     <div class="row">
-                        <p style="width: 50px" th:text="${item.getId()}"></p>
                         <div class="col">
                             <a th:text="${item.getUsername()}" style="color: #ffffff"
                                th:href="@{/user/viewUser(userId=${item.getId()})}"></a>
