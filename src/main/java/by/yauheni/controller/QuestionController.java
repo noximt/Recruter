@@ -47,6 +47,8 @@ public class QuestionController {
 
     @PostMapping(path = "/addQuestion")
     public ModelAndView addQuestion(@ModelAttribute("question") QuestionDTO questionDTO, ModelAndView modelAndView, HttpSession session) {
+        ModelAndView modelAndView1 = optionCheck(questionDTO, modelAndView, session);
+        if (modelAndView1 != null) return modelAndView1;
         session.setAttribute("answersNull", 0);
         session.setAttribute("optionsNull", 0);
         session.setAttribute("IdExistence", 0);
@@ -55,15 +57,12 @@ public class QuestionController {
             modelAndView.setViewName("redirect:/questions");
             return modelAndView;
         }
-        if (questionDTO.getOption1() == null && questionDTO.getOption2() == null && questionDTO.getOption3() == null && questionDTO.getOption4() == null) {
-            session.setAttribute("optionsNull", 1);
-            modelAndView.setViewName("redirect:/questions");
-            return modelAndView;
-        }
+
         questionRepository.save(createQuestion(questionDTO.getNewQuestion(), questionDTO.getAnswer1(), questionDTO.getAnswer2(), questionDTO.getAnswer3(), questionDTO.getAnswer4(), questionDTO.getOption1(), questionDTO.getOption2(), questionDTO.getOption3(), questionDTO.getOption4()));
         modelAndView.setViewName("redirect:/questions");
         return modelAndView;
     }
+
 
     @PostMapping(path = "/deleteQuestion")
     public ModelAndView delete(@RequestParam(defaultValue = "-1") long delete, ModelAndView modelAndView, HttpSession session) {
@@ -123,19 +122,19 @@ public class QuestionController {
     }
 
     @PostMapping(path = "/saveQuestionnaire")
-    public ModelAndView saveQuestionnaire(ModelAndView modelAndView, HttpSession session, @RequestParam String  description) {
+    public ModelAndView saveQuestionnaire(ModelAndView modelAndView, HttpSession session, @RequestParam String description) {
         session.setAttribute("lessThan", 0);
         session.setAttribute("noName", 0);
         session.setAttribute("noId", 0);
         session.setAttribute("moreThan", 0);
-        if (description.equals("")){
+        if (description.equals("")) {
             modelAndView.setViewName("redirect:/questions/createQuest");
             session.setAttribute("noName", 1);
             return modelAndView;
         }
         Questionnaire questionnaire = new Questionnaire();
         List<Question> all = questionService.getAll();
-        if (all.size()<10){
+        if (all.size() < 10) {
             modelAndView.setViewName("redirect:/questions/createQuest");
             session.setAttribute("lessThan", 1);
             return modelAndView;
@@ -155,6 +154,29 @@ public class QuestionController {
         questionService.clear();
         modelAndView.setViewName("redirect:/questions/createQuest");
         return modelAndView;
+    }
+
+
+    private ModelAndView optionCheck(QuestionDTO questionDTO, ModelAndView modelAndView, HttpSession session) {
+        int count = 0;
+        if (questionDTO.getOption1().equals("Правильный")) {
+            count++;
+        }
+        if (questionDTO.getOption2().equals("Правильный")) {
+            count++;
+        }
+        if (questionDTO.getOption3().equals("Правильный")) {
+            count++;
+        }
+        if (questionDTO.getOption4().equals("Правильный")) {
+            count++;
+        }
+        if (count > 1 || count == 0) {
+            session.setAttribute("optionsNull", 1);
+            modelAndView.setViewName("redirect:/questions");
+            return modelAndView;
+        }
+        return null;
     }
 
     private Question createQuestion(String question,
