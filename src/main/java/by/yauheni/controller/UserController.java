@@ -30,6 +30,11 @@ public class UserController {
     public ModelAndView userAuthorization(@ModelAttribute("user") UserAuthDTO userAuthDTO, ModelAndView modelAndView, HttpSession httpSession) {
         User userByLogin = userRepository.findUserByUsername(userAuthDTO.getUsername());
         if (userByLogin != null) {
+            if (userByLogin.getPassword() == null) {
+                httpSession.setAttribute("authorizationError", 1);
+                modelAndView.setViewName("authorizationPage");
+                return modelAndView;
+            }
             if (userByLogin.getPassword().equals(userAuthDTO.getPassword())) {
                 httpSession.setAttribute("user", userByLogin);
             } else {
@@ -47,14 +52,14 @@ public class UserController {
     }
 
     @GetMapping(path = "/profile")
-    public ModelAndView viewProfile(ModelAndView modelAndView,HttpSession session) {
-        session.setAttribute("whereToGo",0);
+    public ModelAndView viewProfile(ModelAndView modelAndView, HttpSession session) {
+        session.setAttribute("whereToGo", 0);
         modelAndView.setViewName("profilePage");
         return modelAndView;
     }
 
     @GetMapping(path = "/logout")
-    public ModelAndView logout(ModelAndView modelAndView, HttpSession httpSession){
+    public ModelAndView logout(ModelAndView modelAndView, HttpSession httpSession) {
         httpSession.invalidate();
         modelAndView.setViewName("redirect:/user/auth");
         return modelAndView;
@@ -62,7 +67,7 @@ public class UserController {
 
     @GetMapping(path = "/allUsers")
     public ModelAndView viewAllUsers(ModelAndView modelAndView) {
-        modelAndView.addObject("allUsers",userRepository.getUserByRole(Role.JOB_CANDIDATE));
+        modelAndView.addObject("allUsers", userRepository.getUserByRole(Role.JOB_CANDIDATE));
         modelAndView.setViewName("allUsersPage");
         return modelAndView;
     }

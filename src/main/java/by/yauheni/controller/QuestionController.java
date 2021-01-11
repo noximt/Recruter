@@ -47,18 +47,23 @@ public class QuestionController {
 
     @PostMapping(path = "/addQuestion")
     public ModelAndView addQuestion(@ModelAttribute("question") QuestionDTO questionDTO, ModelAndView modelAndView, HttpSession session) {
-        ModelAndView modelAndView1 = optionCheck(questionDTO, modelAndView, session);
-        if (modelAndView1 != null) return modelAndView1;
         session.setAttribute("answersNull", 0);
         session.setAttribute("optionsNull", 0);
         session.setAttribute("IdExistence", 0);
-        if (questionDTO.getAnswer1().equals("") || questionDTO.getAnswer2().equals("") || questionDTO.getAnswer3().equals("") || questionDTO.getAnswer4().equals("") || questionDTO.getNewQuestion().equals("")) {
+        if (questionDTO.getAnswer1().equals("") || questionDTO.getAnswer2().equals("") ||
+                questionDTO.getAnswer3().equals("") || questionDTO.getAnswer4().equals("") || questionDTO.getNewQuestion().equals("")) {
             session.setAttribute("answersNull", 1);
             modelAndView.setViewName("redirect:/questions");
             return modelAndView;
         }
+        ModelAndView modelAndView1 = optionCheck(questionDTO, modelAndView, session);
+        if (modelAndView1 != null) return modelAndView1;
 
-        questionRepository.save(createQuestion(questionDTO.getNewQuestion(), questionDTO.getAnswer1(), questionDTO.getAnswer2(), questionDTO.getAnswer3(), questionDTO.getAnswer4(), questionDTO.getOption1(), questionDTO.getOption2(), questionDTO.getOption3(), questionDTO.getOption4()));
+        questionRepository.save(createQuestion(questionDTO.getNewQuestion(),
+                questionDTO.getAnswer1(), questionDTO.getAnswer2(),
+                questionDTO.getAnswer3(), questionDTO.getAnswer4(),
+                questionDTO.getOption1(), questionDTO.getOption2(),
+                questionDTO.getOption3(), questionDTO.getOption4()));
         modelAndView.setViewName("redirect:/questions");
         return modelAndView;
     }
@@ -87,7 +92,7 @@ public class QuestionController {
         session.setAttribute("idDoesntExist", "Введенный ID не существует");
         session.setAttribute("moreThan10", "Опрос не может содержать более 10 вопросов");
         session.setAttribute("lessThan10", "Опрос не может содержать меньше 10 вопросов");
-        session.setAttribute("questionnaireName", "Введите название опросника");
+        session.setAttribute("questionnaireName", "Введите название опроса");
         modelAndView.setViewName("createQuestionnairePage");
         return modelAndView;
     }

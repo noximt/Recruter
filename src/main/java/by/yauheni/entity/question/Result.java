@@ -1,6 +1,5 @@
 package by.yauheni.entity.question;
 
-import by.yauheni.entity.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

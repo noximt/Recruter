@@ -69,9 +69,28 @@ public class QuestionnaireController {
 
     @PostMapping(path = "/questionnaireSubmit")
     public ModelAndView submit(@ModelAttribute("questionnaire") QuestionnaireDTO questionnaireDTO, ModelAndView modelAndView) {
-        Result result = new Result(questionnaireDTO.getQuestion1(), questionnaireDTO.getQuestion2(), questionnaireDTO.getQuestion3(), questionnaireDTO.getQuestion4(), questionnaireDTO.getQuestion5(), questionnaireDTO.getQuestion6(), questionnaireDTO.getQuestion7(), questionnaireDTO.getQuestion8(), questionnaireDTO.getQuestion9(), questionnaireDTO.getQuestion10(), questionnaireDTO.getAnswer1(), questionnaireDTO.getAnswer2(), questionnaireDTO.getAnswer3(), questionnaireDTO.getAnswer4(), questionnaireDTO.getAnswer5(), questionnaireDTO.getAnswer6(), questionnaireDTO.getAnswer7(), questionnaireDTO.getAnswer8(), questionnaireDTO.getAnswer9(), questionnaireDTO.getAnswer10());
+        Result result = new Result(questionnaireDTO.getQuestion1(),
+                questionnaireDTO.getQuestion2(),
+                questionnaireDTO.getQuestion3(),
+                questionnaireDTO.getQuestion4(),
+                questionnaireDTO.getQuestion5(),
+                questionnaireDTO.getQuestion6(),
+                questionnaireDTO.getQuestion7(),
+                questionnaireDTO.getQuestion8(),
+                questionnaireDTO.getQuestion9(),
+                questionnaireDTO.getQuestion10(),
+                questionnaireDTO.getAnswer1(),
+                questionnaireDTO.getAnswer2(),
+                questionnaireDTO.getAnswer3(),
+                questionnaireDTO.getAnswer4(),
+                questionnaireDTO.getAnswer5(),
+                questionnaireDTO.getAnswer6(),
+                questionnaireDTO.getAnswer7(),
+                questionnaireDTO.getAnswer8(),
+                questionnaireDTO.getAnswer9(), questionnaireDTO.getAnswer10());
         resultRepository.save(result);
-        userRepository.save(new User(questionnaireDTO.getUsername(), questionnaireDTO.getName(), questionnaireDTO.getSurname(), questionnaireDTO.getMobile(), Role.JOB_CANDIDATE, result));
+        userRepository.save(new User(questionnaireDTO.getUsername(),
+                questionnaireDTO.getName(), questionnaireDTO.getSurname(), questionnaireDTO.getMobile(), Role.JOB_CANDIDATE, result));
         modelAndView.setViewName("index");
         return modelAndView;
     }
